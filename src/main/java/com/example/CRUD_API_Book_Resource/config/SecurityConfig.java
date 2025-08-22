@@ -29,7 +29,7 @@ public class SecurityConfig {
         MyUserDetailsService userDetailsService;
 
         @Autowired
-        private com.example.CRUD_API_Book_Resource.filter.JwtFilter jwtFilter;
+        private com.example.CRUD_API_Book_Resource.config.JwtFilter jwtFilter;
 
         @Value("${app.security.require-ssl:false}")
         private boolean requireSsl;
@@ -45,6 +45,7 @@ public class SecurityConfig {
                         .csrf(csrf -> csrf.disable())
                         .authorizeHttpRequests(auth -> auth
                                 .requestMatchers("/api/auth/**").permitAll() // login/register API
+                                .requestMatchers("/api/books").permitAll() //  allow products without JWT
                                 .anyRequest().authenticated()
                         )
                         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

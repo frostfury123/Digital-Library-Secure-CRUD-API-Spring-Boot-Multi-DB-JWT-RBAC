@@ -1,4 +1,4 @@
-package com.example.CRUD_API_Book_Resource.filter;
+package com.example.CRUD_API_Book_Resource.config;
 
 import com.example.CRUD_API_Book_Resource.service.JWTService;
 import io.jsonwebtoken.Claims;

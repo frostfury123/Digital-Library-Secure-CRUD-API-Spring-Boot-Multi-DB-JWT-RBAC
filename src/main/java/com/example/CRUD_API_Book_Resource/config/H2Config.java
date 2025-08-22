@@ -39,6 +39,7 @@ public class H2Config {
             EntityManagerFactoryBuilder builder,
             @Qualifier("h2DataSource") DataSource dataSource) {
         return builder
+
                 .dataSource(dataSource)
                 .packages("com.example.CRUD_API_Book_Resource.model.h2") // H2 entities
                 .persistenceUnit("h2PU")

@@ -19,7 +19,7 @@ public class BookController {
     @Autowired
     private BookService service;
 
-    @PreAuthorize("hasAuthority('view_books')")
+
     @GetMapping("/books")
     public ResponseEntity<List<Book>> getBooks(){
 
