@@ -2,6 +2,7 @@ package com.example.CRUD_API_Book_Resource.service;
 
 import com.example.CRUD_API_Book_Resource.model.postgres.Users;
 import com.example.CRUD_API_Book_Resource.repository.postgres.UserRepository;
+import com.example.CRUD_API_Book_Resource.security.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,6 +29,7 @@ public class UserService {
     public Users register(Users user){
 
             user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setRole(Role.READER);
             return repo.save(user);
     }
 
