@@ -46,6 +46,12 @@ This project is designed to showcase **enterprise-grade application design** wit
 
 - **POST /register** – Readers can self-register.
 
+- **POST /auth/login** - Authenticates a user and issues a JWT token based on their role (Reader, Editor, Librarian, Administrator).
+
+- **GET /login/google** - Users can authenticate via their Google account using this OAuth2 login endpoint.
+
+- **GET /login/github** - Users can authenticate via their GitHub account using this OAuth2 login endpoint.
+
 - **Role enforcement** on all APIs.
 
 ### Audit Logging
@@ -99,8 +105,8 @@ This project is designed to showcase **enterprise-grade application design** wit
 #### Clone the Repository
 
 ```
-git clone https://github.com/your-username/springboot-multidb-crud-rbac-api.git
-cd springboot-multidb-crud-rbac-api
+git clone https://github.com/your-username/Digital-Library-Secure-CRUD-API-Spring-Boot-Multi-DB-JWT-RBAC.git
+cd Digital-Library-Secure-CRUD-API-Spring-Boot-Multi-DB-JWT-RBAC
 ```
 #### Configure Databases
 
